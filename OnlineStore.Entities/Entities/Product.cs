@@ -13,7 +13,7 @@ namespace OnlineStore.Domain.Entities
     public class Product
     {
         [Key]
-        [HiddenInput(DisplayValue = false)]
+       // [HiddenInput(DisplayValue = false)]
        
         public int Id { get; set; }
         [Required(ErrorMessage ="Please add Name")]
@@ -25,5 +25,6 @@ namespace OnlineStore.Domain.Entities
     
         public int IdStore { get; set; }
         public Store Store { get; set; }
+
     }
 }

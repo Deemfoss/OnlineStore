@@ -19,6 +19,12 @@ namespace OnlineStore.Domain.Entities
         [Required(ErrorMessage = "Please add Adress")]
         public string Adress { get; set; }
         [Required(ErrorMessage = "Please add work time")]
-        public TimeSpan WorkTime { get; set; }
+        public string WorkTime { get; set; }
+
+        public   ICollection<Product> Products { get; set; }
+        public Store()
+        {
+            Products = new List<Product>();
+        }
     }
 }
