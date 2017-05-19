@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using OnlineStore.Domain.Concrete;
 using OnlineStore.Domain.Entities;
 
-namespace OnlineStore.Domain.Concrete
+namespace OnlineStore.Domain.IRepository
 {
-    public class IProductsRepository
+    public class IProductRepository
     {
         private StoreContext db = new StoreContext();
         private ProductRepository productRepository;

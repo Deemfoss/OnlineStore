@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<OnlineStore.Domain.Entities.Store>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+<h2>Stores</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create new store", "CreateStore")
 </p>
-<table class="table">
+<table class="table table-hover table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -24,8 +20,7 @@
     </tr>
 
 @foreach (var item in Model) {
-   using (Ajax.BeginForm("Edit", new AjaxOptions { UpdateTargetId = "results" }))
-   {
+  
         
      <tr>
         <td>
@@ -40,15 +35,43 @@
 
         <td>
            
-                @Ajax.ActionLink("Productts", "Edit",new {id=item.Id }, new AjaxOptions { UpdateTargetId = "results" })
-            
+                @Ajax.ActionLink("Products", "Edit",new {id=item.Id }, new AjaxOptions { UpdateTargetId = "results" }, new
+           {
+               onclick = "document.getElementById('results').style.visibility = 'visible'" } )
+
+         </td>
+
+         <td>
+
+             @Html.ActionLink("Edit", "EditStore", new { id = item.Id })
+             <form action="" method="post">
+                 <div><a href="/Home/DeleteStore/@item.Id">Delete</a></div>
                 
-          
-        </td>
+             </form>        
+                 @Html.ActionLink("Delete", "DeleteStore", new { id = item.Id })
+           
+         </td>
+
+         
+
+         
     </tr>
 }
-}
+
 </table>
-<div id="results"></div>
-@Scripts.Render("~/scripts/jquery-1.7.1.js")
-@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
+
+
+
+<div id="results">
+    
+</div>
+
+
+@*<a href="#" id="link">Click me to hide products</a>
+    <script >
+        document.getElementById('link').addEventListener('click', function (e) {
+            document.getElementById('results').remove()
+        });
+         </script>
+    <a href="#" onclick="document.getElementById('results').style.visibility = 'visible'">...</a>
+*@

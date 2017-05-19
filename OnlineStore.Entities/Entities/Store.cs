@@ -19,6 +19,7 @@ namespace OnlineStore.Domain.Entities
         [Required(ErrorMessage = "Please add Adress")]
         public string Adress { get; set; }
         [Required(ErrorMessage = "Please add work time")]
+        [RegularExpression("(([01]?[0-9]|2[0-3])[:][0-5]?[0-9])[-](([01]?[0-9]|2[0-3])[:][0-5]?[0-9])", ErrorMessage = "Enter the time in the format ##:##-##:##")]
         public string WorkTime { get; set; }
 
         public   ICollection<Product> Products { get; set; }

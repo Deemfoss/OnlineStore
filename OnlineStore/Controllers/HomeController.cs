@@ -5,14 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using OnlineStore.Domain.Concrete;
 using OnlineStore.Domain.Entities;
+using System.Data.Entity;
+using OnlineStore.Domain.IRepository;
 namespace OnlineStore.Controllers
 {
     public class HomeController : Controller
     {
-        IProductsRepository productrep;
+        IProductRepository productrep;
+        IStoreRepository storrep;
         public HomeController()
         {
-            productrep = new IProductsRepository();
+            productrep = new IProductRepository();
+            storrep = new IStoreRepository();
         }
 
         StoreContext db = new StoreContext();
@@ -27,38 +31,105 @@ namespace OnlineStore.Controllers
        
         public ActionResult Edit(int id)
         {
-            var res = db.Products.Where(i => i.IdStore == id).ToList();
-
+            var res = db.Products.Include(p => p.Store).Where(d => d.IdStore == id).ToList();
+       
             return PartialView(res);
         }
-    
+
+        [HttpGet]
+        public ActionResult CreateProduct()
+        {
+            SelectList products = new SelectList(db.Stores, "Id", "Name");
+            ViewBag.Products = products;
+            return View();
+        }
+
         [HttpPost]
         public ActionResult CreateProduct(Product product)
         {
             productrep.Proucts.Create(product);
             productrep.Proucts.Save();
-
+           
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public ActionResult CreateProduct()
+        public ActionResult CreateStore()
         { 
           
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult CreateStore(Store store)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            storrep.Stores.Create(store);
+            storrep.Stores.Save();
+            
+            return RedirectToAction("Index");
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
+        [HttpGet]
+        public ActionResult EditProduct(int id)
+        {
+           
+
+            var res= productrep.Proucts.Get(id);
+            SelectList products = new SelectList(db.Stores, "Id", "Name",res.Name);
+            return View(res);
         }
+
+
+        [HttpPost]
+        public ActionResult EditProduct(Product product)
+        {
+            productrep.Proucts.Update(product);
+            productrep.Proucts.Save();
+
+            return RedirectToAction("Index");
+        }
+
+
+      [HttpPost]
+        public ActionResult DeleteProduct(int id)
+        {
+            productrep.Proucts.Delete(id);
+            productrep.Proucts.Save();
+
+            return RedirectToAction("Index");
+        }
+
+
+       [HttpPost]
+        public ActionResult DeleteStore(int id)
+        {
+            storrep.Stores.Delete(id);
+            storrep.Stores.Save();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult EditStore(int id)
+        {
+
+
+            var res = storrep.Stores.Get(id);
+
+            return View(res);
+        }
+
+
+        [HttpPost]
+        public ActionResult EditStorre(Store store)
+        {
+            storrep.Stores.Update(store);
+            productrep.Proucts.Save();
+
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }

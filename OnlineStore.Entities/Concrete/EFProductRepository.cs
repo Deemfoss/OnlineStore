@@ -6,18 +6,10 @@ using System.Threading.Tasks;
 using OnlineStore.Domain.Entities;
 using OnlineStore.Domain.Concrete;
 using System.Data.Entity;
-
+using OnlineStore.Domain.IRepository;
 namespace OnlineStore.Domain.Concrete
 {
-    interface IRepository<T> where T : class
-    {
-        IEnumerable<T> GetAll();
-        T Get(int id);
-        void Create(T item);
-        void Update(T item);
-        void Delete(int id);
-        void Save();
-    }
+  
  public   class ProductRepository:IRepository<Product>
     {       
             private StoreContext db;
@@ -27,12 +19,8 @@ namespace OnlineStore.Domain.Concrete
                 this.db = context;
             }
 
-            public IEnumerable<Product> GetAll()
-            {
-                return db.Products;
-            }
-
-            public Product Get(int id)
+        
+             public Product Get(int id)
             {
                 return db.Products.Find(id);
             }
@@ -44,6 +32,7 @@ namespace OnlineStore.Domain.Concrete
 
             public void Update(Product product)
             {
+           
                 db.Entry(product).State = EntityState.Modified;
             }
 

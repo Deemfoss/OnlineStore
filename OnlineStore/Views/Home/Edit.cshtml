@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<OnlineStore.Domain.Entities.Product>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<a href="#" onclick="document.getElementById('results').style.visibility = 'hidden'">Hide products</a>
+@Html.ActionLink("Create new Product","CreateProduct")
+<table class="table table-bordered table-condensed">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -12,7 +11,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdStore)
+            @Html.DisplayName("Store")
         </th>
         <th></th>
     </tr>
@@ -26,13 +25,16 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IdStore)
+            @Html.DisplayFor(modelItem => item.Store.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
+            @Html.ActionLink("Edit", "EditProduct", new { id=item.Id }) 
+            <form action="" method="post">
+                @Html.ActionLink("Delete", "DeleteProduct", new { id = item.Id })
+
+               </form>
+
+</td>
     </tr>
 }
 

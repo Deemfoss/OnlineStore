@@ -25,6 +25,7 @@ namespace OnlineStore.Domain.Entities
     
         public int IdStore { get; set; }
         public Store Store { get; set; }
+      
 
     }
 }
