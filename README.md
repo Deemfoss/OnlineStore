@@ -9,7 +9,7 @@
 Требования к технологиям
 ASP.NET MVC 4-5  UI – MVC Razor, Ajax подгрузка товаров
 AngularJS+WebAPI – не обязательно, будет плюсом вашему заданию
-3.        MiddleTier – ORM EF6, Repository
+MiddleTier – ORM EF6, Repository
 Unit of work - не обязательно, будет плюсом вашему заданию
 WebAPI – не обязательно, будет плюсом вашему заданию
-4.        DB - MSSQLServer
+DB - MSSQLServer
