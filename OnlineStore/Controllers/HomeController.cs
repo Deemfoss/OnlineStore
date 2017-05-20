@@ -7,6 +7,7 @@ using OnlineStore.Domain.Concrete;
 using OnlineStore.Domain.Entities;
 using System.Data.Entity;
 using OnlineStore.Domain.IRepository;
+using Vereyon.Web;
 namespace OnlineStore.Controllers
 {
     public class HomeController : Controller
@@ -47,8 +48,13 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult CreateProduct(Product product)
         {
-            productrep.Proucts.Create(product);
-            productrep.Proucts.Save();
+            if (ModelState.IsValid)
+            {
+                productrep.Proucts.Create(product);
+                productrep.Proucts.Save();
+                FlashMessage.Confirmation("The product was created successfully");
+            }
+           
            
             return RedirectToAction("Index");
         }
@@ -62,40 +68,25 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult CreateStore(Store store)
         {
-            storrep.Stores.Create(store);
-            storrep.Stores.Save();
-            
+            if (ModelState.IsValid)
+            {
+                storrep.Stores.Create(store);
+                storrep.Stores.Save();
+                FlashMessage.Confirmation("The store was created successfully");
+            }
             return RedirectToAction("Index");
         }
 
-
-        [HttpGet]
-        public ActionResult EditProduct(int id)
-        {
-           
-
-            var res= productrep.Proucts.Get(id);
-            SelectList products = new SelectList(db.Stores, "Id", "Name",res.Name);
-            return View(res);
-        }
-
-
-        [HttpPost]
-        public ActionResult EditProduct(Product product)
-        {
-            productrep.Proucts.Update(product);
-            productrep.Proucts.Save();
-
-            return RedirectToAction("Index");
-        }
-
-
+        
       [HttpPost]
         public ActionResult DeleteProduct(int id)
         {
-            productrep.Proucts.Delete(id);
-            productrep.Proucts.Save();
-
+            if (ModelState.IsValid)
+            {
+                productrep.Proucts.Delete(id);
+                productrep.Proucts.Save();
+                FlashMessage.Danger("The product was deleted successfully");
+            }
             return RedirectToAction("Index");
         }
 
@@ -103,9 +94,12 @@ namespace OnlineStore.Controllers
        [HttpPost]
         public ActionResult DeleteStore(int id)
         {
-            storrep.Stores.Delete(id);
-            storrep.Stores.Save();
-
+            if (ModelState.IsValid)
+            {
+                storrep.Stores.Delete(id);
+                storrep.Stores.Save();
+                FlashMessage.Info("The Store was deleted successfully");
+            }
             return RedirectToAction("Index");
         }
 
@@ -121,11 +115,14 @@ namespace OnlineStore.Controllers
 
 
         [HttpPost]
-        public ActionResult EditStorre(Store store)
+        public ActionResult EditStore(Store store)
         {
-            storrep.Stores.Update(store);
-            productrep.Proucts.Save();
-
+            if (ModelState.IsValid)
+            {
+                storrep.Stores.Update(store);
+                productrep.Proucts.Save();
+                FlashMessage.Warning("The Store was changed successfully");
+            }
             return RedirectToAction("Index");
         }
 

@@ -1,7 +1,10 @@
 ﻿@model OnlineStore.Domain.Entities.Store
 
+@{
+    ViewBag.Title = "EditStore";
+}
 
-    <h2>Create Store</h2>
+<h2>EditStore</h2>
 
 <div class="well well-sm" style="width:600px">
     @using (Html.BeginForm())
@@ -11,6 +14,8 @@
         <div class="form-horizontal">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -30,24 +35,23 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.WorkTime, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.WorkTime, new { htmlAttributes = new { placeholder = "##:##-##:##", @class = "form-control" } })
+                    @Html.EditorFor(model => model.WorkTime, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.WorkTime, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
+    </div>
+    <div>
+        @Html.ActionLink("Return", "Index")
+    </div>
 
-    
-</div>
-<div>
-    @Html.ActionLink("Return", "Index")
-</div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

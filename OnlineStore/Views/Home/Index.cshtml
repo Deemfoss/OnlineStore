@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<OnlineStore.Domain.Entities.Store>
-
+@using Vereyon.Web;
 <h2>Stores</h2>
+
+@Html.ActionLink("Store rss", "webApi", "api")
 
 <p>
     @Html.ActionLink("Create new store", "CreateStore")
 </p>
+@Html.RenderFlashMessages()
 <table class="table table-hover table-bordered">
     <tr>
         <th>
@@ -44,11 +47,8 @@
          <td>
 
              @Html.ActionLink("Edit", "EditStore", new { id = item.Id })
-             <form action="" method="post">
-                 <div><a href="/Home/DeleteStore/@item.Id">Delete</a></div>
-                
-             </form>        
-                 @Html.ActionLink("Delete", "DeleteStore", new { id = item.Id })
+            
+             @Ajax.ActionLink("Delete", "DeleteStore", new { id = item.Id }, new AjaxOptions { HttpMethod = "Post" })
            
          </td>
 
@@ -62,8 +62,7 @@
 
 
 
-<div id="results">
-    
+<div id="results">   
 </div>
 
 

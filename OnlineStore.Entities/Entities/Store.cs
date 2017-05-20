@@ -22,6 +22,7 @@ namespace OnlineStore.Domain.Entities
         [RegularExpression("(([01]?[0-9]|2[0-3])[:][0-5]?[0-9])[-](([01]?[0-9]|2[0-3])[:][0-5]?[0-9])", ErrorMessage = "Enter the time in the format ##:##-##:##")]
         public string WorkTime { get; set; }
 
+
         public   ICollection<Product> Products { get; set; }
         public Store()
         {

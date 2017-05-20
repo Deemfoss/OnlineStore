@@ -2,6 +2,7 @@
 
 <a href="#" onclick="document.getElementById('results').style.visibility = 'hidden'">Hide products</a>
 @Html.ActionLink("Create new Product","CreateProduct")
+
 <table class="table table-bordered table-condensed">
     <tr>
         <th>
@@ -28,14 +29,12 @@
             @Html.DisplayFor(modelItem => item.Store.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditProduct", new { id=item.Id }) 
-            <form action="" method="post">
-                @Html.ActionLink("Delete", "DeleteProduct", new { id = item.Id })
+                     
+                @Ajax.ActionLink("Delete", "DeleteProduct", new { id = item.Id }, new AjaxOptions { HttpMethod = "Post" })
 
-               </form>
 
 </td>
     </tr>
-}
 
+}   
 </table>
